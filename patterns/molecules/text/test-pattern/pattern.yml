@@ -1,0 +1,13 @@
+name: Test Pattern
+description: PATTERN DESCRIPTION GOES HERE
+twig: test-pattern.twig
+sass: test-pattern.scss
+script: test-pattern.js
+category: molecules
+subcategory: text
+data:
+  testPattern:
+    class: test-pattern
+    h1:
+      class: test-pattern__heading
+      text: "Test Pattern Title"
