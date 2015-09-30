@@ -7,6 +7,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var path = require('path');
 var patternUtils = require('pattern-library-utilities');
+var log = patternUtils.logger;
 var print = require('gulp-print');
 var rename = require('gulp-rename');
 var replace = require('gulp-replace');
@@ -20,23 +21,9 @@ CONFIGURATION
 */
 // configuration file must be YAML
 var configurationFile = './config.yml';
-var configYml;
 
-// attempt to synchronously open the yaml configuration file
-try {
-  // open the configuration file
-  configYml = fs.readFileSync(configurationFile, {encoding: 'utf8'});
-}
-catch (e) {
-  console.log('Configuration Load Error:', e);
-}
-// convert configuration file to JS Object
-var configObject = patternUtils.convertYamlToObject(configYml);
-// regex to search for variables
-var variableRegex = /{{.*}}/g;
-// convert variables
-var configuration = patternUtils.convertRecursiveJsonVariables(configObject, variableRegex);
-
+// combine configuration with defaults
+var configuration = patternUtils.getProjectOptions(configurationFile);
 
 /******************************************
 NPM-BASED GULP TASKS
@@ -70,7 +57,7 @@ if (configuration.npmPatternRepos) {
         htmlTemplateDest: configuration.fileTypes.patterns.prototyperDestDir,
         stylesDest: configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name,
         scriptsDest: configuration.fileTypes.js.prototyperSrcDir + '/npm/' + repo.name,
-        convertCategoryTitles: false
+        convertCategoryTitles: configuration.gulpTasks.patternImporter.npmPatterns.config.convertCategoryTitles
       },
       taskName: 'patterns-import-npm-' + repo.name,
       src: ['./node_modules/' + repo.repoDir + '/patterns/**/pattern.yml']
@@ -91,6 +78,21 @@ gulp.task('patterns-import-all', function () {
   'use strict';
   runSequence.apply(null, patternImportTasks);
 });
+
+/**
+ * Pattern Cloner
+ *
+ * Imports the Gulp task that clones a pattern-library pattern
+ *
+ * @example
+ * // clone the logo pattern from the base pattern-library
+ * `$ gulp clone-pattern --pattern node_modules/pattern-library/patterns/molecules/images/logo`
+ *
+ */
+var cloneOptions = {
+  taskName: configuration.gulpTasks.clonePattern.taskName
+}
+patternUtils.gulpClonePattern(require('gulp'),cloneOptions);
 
 /**
  * Glob and Inject JS
@@ -211,8 +213,7 @@ if (configuration.npmPatternRepos) {
         endtag: '// endinjectnpm' + repo.name
       },
       files: [ // relative paths to files to be globbed
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/*.scss',
-        configuration.fileTypes.sass.prototyperSrcDir + '/npm/' + repo.name + '/**/*.scss'
+        './node_modules/' + repo.repoDir + '/patterns/**/*.scss'
       ],
       src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
       dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
@@ -230,14 +231,11 @@ var globbingOptionsGlobalAssetsSass = {
     starttag: '// inject:globalassets:scss',
     endtag: '// endinjectglobalassets'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets  + '/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/' + configuration.globalAssets + '/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-global-assets',
-  dependencies: ['global-assets-import-sass']
+  dependencies: []
 };
 sassGlobTasks.push(globbingOptionsGlobalAssetsSass.taskName);
 patternUtils.gulpScssGlobInject(gulp, globbingOptionsGlobalAssetsSass);
@@ -248,10 +246,7 @@ var globbingOptionsLocalSass = {
     starttag: '// inject:local:scss',
     endtag: '// endinjectlocal'
   },
-  files: [ // relative paths to files to be globbed
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/*.scss',
-    configuration.fileTypes.sass.prototyperSrcDir + '/local/**/*.scss'
-  ],
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-local',
@@ -312,33 +307,56 @@ gulp.task('patternlab-clean', function (done) {
  * @requires child_process.exec
  */
 gulp.task('patternlab-install', function (done) {
-  'use strict';
 
   fs.exists(configuration.patternlab.dest, function (exists) {
     if (!exists) {
 
-      // composer create-project pattern-lab/edition-twig-standard has promts,
+      // 1. installing composer locally
+      // 2. composer create-project pattern-lab/edition-twig-standard has promts,
       // passing answers to command in advance to prevent installation blocking.
-      var command = "(echo '1'\
+      var command = "(curl -sS https://getcomposer.org/installer | php) && (echo '1'\
       sleep 1\
       echo 'r'\
-      sleep 1 ) | composer create-project pattern-lab/edition-twig-standard " + configuration.patternlab.dest + ' ' + configuration.patternlab.version;
-
-      console.log('Installing Patternlab...');
-      exec(command, function (error, stdout, stderr) {
-        // print buffers
-        console.log(stdout, stderr);
-        if (error !== null) {
-          console.error(error);
+      sleep 1 ) | " + configuration.patternlab.composer + " create-project pattern-lab/edition-twig-standard " + configuration.patternlab.dest + " " + configuration.patternlab.version;
+      log.info('Installing Patternlab...');
+      var child = exec(command);
+      // output all the streams to log
+      child.stdout.on('data', function (data) {log.info(data.toString());});
+      child.stderr.on('data', function (data) {log.info(data.toString());});
+      child.on('close', function(code) {
+        // output exit code in case of error
+        if (code !== 0) {
+          log.info('Child process exited with code ' + code);
         }
         done();
       });
-    }
-    else {
-      console.log('Patternlab is already installed, skipping installation...');
+    } else {
+      log.info('Patternlab is already installed, skipping installation...');
       done();
     }
+  })
+});
+
+/**
+Generate the Patternlab Public Folder from the Source Folder
+*/
+gulp.task('patternlab-build-public', function (done) {
+  'use strict';
+
+  var command = 'php patternlab/core/console --generate';
+  log.info('Regenerating Pattern Lab public directory...');
+  var child = exec(command);
+  // output all the streams to log
+  child.stdout.on('data', function (data) {log.info(data.toString());});
+  child.stderr.on('data', function (data) {log.info(data.toString());});
+  child.on('close', function(code) {
+    // output exit code in case of error
+    if (code !== 0) {
+      log.info('Child process exited with code ' + code);
+    }
+    done();
   });
+
 });
 
 /**
@@ -368,17 +386,6 @@ if (configuration.templates) {
 // copy all templates in parallel
 gulp.task('tpl-copy-all', copyTemplateTasks);
 
-/**
-Generate the Patternlab Public Folder from the Source Folder
-TODO: error handling
-*/
-gulp.task('patternlab-build-public', function (done) {
-  'use strict';
-
-  return cp.spawn('php', ['patternlab/core/console', '--generate'])
-      .on('close', done);
-});
-
 /******************************************
 PATTERN LIBRARY GULP TASKS
 */
@@ -394,9 +401,9 @@ PATTERN LIBRARY GULP TASKS
 gulp.task('sass', configuration.gulpTasks.gulpSass.dependencies, function () {
   'use strict';
 
-  return gulp.src(configuration.fileTypes.sass.prototyperSrc) // primary sass file in SOURCE
+  return gulp.src(configuration.gulpTasks.gulpSass.src) // primary sass file in SOURCE
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest(configuration.fileTypes.sass.prototyperDestDir));
+    .pipe(gulp.dest(configuration.gulpTasks.gulpSass.dest));
 });
 
 /**
@@ -460,7 +467,7 @@ gulp.task('global-assets-import-images', function () {
 });
 
 // import all global files
-gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-sass', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
+gulp.task('global-assets-import-all', ['global-assets-import-js', 'global-assets-import-css', 'global-assets-import-fonts', 'global-assets-import-images']);
 
 /**
 BROWSER SYNC

@@ -1,4 +1,4 @@
-# scottnath pattern library Pattern Library
+# scottnath Pattern Library
 
 This repository is a set of html patterns following the [pattern-library](http://github.com/pattern-library/pattern-library) organizational model. 
 
