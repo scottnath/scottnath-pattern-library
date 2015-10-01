@@ -1,0 +1,4 @@
+{% if content is empty %}
+  {% set content = td.content %}
+{% endif %}
+&lt;td class=&quot;{{content[i].class}}&quot;&gt;{{ content[i].text}}&lt;/td&gt;

@@ -1,0 +1,5 @@
+{% set img = figure.img %}
+&lt;figure class=&quot;{{figure.class}}&quot;&gt;
+  {% include 'atoms/images/img/img.twig' with img %}
+  &lt;figcaption&gt;{{figure.caption.text}}&lt;/figcaption&gt;
+&lt;/figure&gt;

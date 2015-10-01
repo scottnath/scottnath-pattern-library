@@ -1,0 +1,16 @@
+&lt;!-- Pattern: address --&gt;
+&lt;div class=&quot;{{address.class}}&quot;&gt;
+  &lt;span class=&quot;{{address.name.class}}&quot;&gt;
+    &lt;span class=&quot;given-name&quot;&gt;{{address.name.givenName}}&lt;/span&gt;
+    &lt;span class=&quot;family-name&quot;&gt;{{address.name.familyName}}&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;div class=&quot;org&quot;&gt;{{address.company.name}}&lt;/div&gt;
+  &lt;div class=&quot;adr&quot;&gt;
+    &lt;div class=&quot;street-address&quot;&gt;{{address.adr.street}}&lt;/div&gt;
+    &lt;span class=&quot;locality&quot;&gt;{{address.adr.locality}}&lt;/span&gt;,
+    &lt;span class=&quot;postal-code&quot;&gt;{{address.adr.postalCode}}&lt;/span&gt;,
+    &lt;abbr class=&quot;region&quot; title=&quot;{{address.adr.region.title}}&quot;&gt;{{address.adr.region.abbr}}&lt;/abbr&gt;
+    &lt;div class=&quot;country-name&quot; title=&quot;{{address.adr.country.title}}&quot;&gt;{{address.adr.country.abbr}}&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tel&quot;&gt;{{address.adr.tel}}&lt;/div&gt;
+&lt;/div&gt;

@@ -1,0 +1,11 @@
+{% set tr = head.tr %}
+{% if content is empty %}
+  {% set content = head.th.content %}
+{% endif %}
+
+&lt;thead class=&quot;{{head.class}}&quot;&gt;
+  {% for item in head.th %}
+    {% include 'atoms/tables/tr/tr.twig' %}
+  {% endfor %}
+&lt;/thead&gt;
+

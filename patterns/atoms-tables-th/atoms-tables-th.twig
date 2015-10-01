@@ -1,0 +1,4 @@
+{% if content is empty %}
+  {% set content = th.content %}
+{% endif %}
+&lt;th class=&quot;{{content[i].class}}&quot;&gt;{{ content[i].text}}&lt;/th&gt;

@@ -1,0 +1,10 @@
+&lt;footer class=&quot;{{footer.class}}&quot;&gt;
+  &lt;div class=&quot;{{footer.copyright.class}}&quot;&gt;{{footer.copyright.text}}&lt;/div&gt;
+
+  &lt;ul class=&quot;{{footer.nav.class}}&quot;&gt;
+    {% for item in footer.nav.listItems %}
+      &lt;li class=&quot;{{ item.class }}&quot;&gt;&lt;a href=&quot;{{ item.url }}&quot; title=&quot;{{ item.title }}&quot;&gt;{{ item.shortTitle }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+  &lt;/ul&gt;
+  
+&lt;/footer&gt;

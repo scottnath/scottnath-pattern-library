@@ -1,0 +1,11 @@
+{% set tr = body.tr %}
+{% if content is empty %}
+  {% set content = body.td.content %}
+{% endif %}
+
+&lt;tbody class=&quot;{{body.class}}&quot;&gt;
+  {% for item in body.td %}
+    {% include 'atoms/tables/tr/tr.twig' %}
+  {% endfor %}
+&lt;/tbody&gt;
+

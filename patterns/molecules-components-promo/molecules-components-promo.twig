@@ -1,0 +1,13 @@
+&lt;article class=&quot;{{promo.class}}&quot;&gt;
+  
+  &lt;section class=&quot;{{promo.image.class}}&quot;&gt;
+    {% set img = promo.image.img %}
+    {% include 'atoms/images/img/img.twig' %}
+  &lt;/section&gt;
+
+  &lt;section class=&quot;{{promo.text.class}}&quot;&gt;
+    &lt;{{promo.text.header.element}} class=&quot;{{promo.text.header.class}}&quot;&gt;{{promo.text.header.text}}&lt;/{{promo.text.header.element}}&gt;
+    &lt;div class=&quot;{{promo.text.body.class}}&quot;&gt;{{promo.text.body.text}}&lt;/div&gt;
+  &lt;/section&gt;
+  
+&lt;/article&gt;

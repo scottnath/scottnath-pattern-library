@@ -1,0 +1,7 @@
+&lt;nav id=&quot;{{nav.id}}&quot; class=&quot;{{nav.class}}&quot;&gt;
+  &lt;ul class=&quot;{{nav.list.class}}&quot;&gt;
+    {% for item in nav.list.listItems %}
+      &lt;li class=&quot;{{ item.class }}&quot;&gt;&lt;a href=&quot;{{ item.url }}&quot; title=&quot;{{ item.title }}&quot;&gt;{{ item.shortTitle }}&lt;/a&gt;&lt;/li&gt;
+    {% endfor %}
+  &lt;/ul&gt;
+&lt;/nav&gt;

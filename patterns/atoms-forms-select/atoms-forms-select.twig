@@ -1,0 +1,7 @@
+{% set option = select.option %}
+&lt;select name=&quot;{{select.name}}&quot; id=&quot;{{select.id}}&quot; class=&quot;{{select.class}}&quot;&gt;
+  {% for item in option %}
+    {% include 'atoms/forms/option/option.twig' %}
+  {% endfor %}
+&lt;/select&gt;
+

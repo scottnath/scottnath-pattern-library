@@ -1,0 +1,9 @@
+&lt;!-- Pattern: Definition List --&gt;
+&lt;dl class=&quot;{{dl.class}}&quot;&gt;
+  {% for term in dl.terms %}
+    &lt;dt class=&quot;{{term.titleClass}}&quot;&gt;{{term.title}}&lt;/dt&gt;
+    {% for definition in term.definitions %}
+      &lt;dd class=&quot;{{term.definitionClass}}&quot;&gt;{{definition}}&lt;/dd&gt;
+    {% endfor %}
+  {% endfor %}
+&lt;/dl&gt;
