@@ -17,6 +17,10 @@ npmPatternRepos:
     name: 'base' # short name for this library
     repoDir: 'pattern-library' # directory name for this library
 # templates imported into pattern lab after it is installed by composer
+  -
+    name: 'rebecca' # short name for this library
+    repoDir: 'rebeccaPatternLibrary-pattern-library' # directory name for this library
+# templates imported into pattern lab after it is installed by composer
 templates:
   -
     name: 'site-head'

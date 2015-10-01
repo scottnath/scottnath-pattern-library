@@ -16,6 +16,7 @@
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
-    "pattern-library": "^0.1.2"
+    "pattern-library": "^0.1.2",
+    "rebeccaPatternLibrary-pattern-library": "git+ssh://git@github.com/rebmullin/rebecca-pattern-library.git"
   }
 }
