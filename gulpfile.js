@@ -229,7 +229,7 @@ var globbingOptionsGlobalAssetsSass = {
     starttag: '// inject:globalassets:scss',
     endtag: '// endinjectglobalassets'
   },
-  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
+  files: configuration.gulpTasks.fileGlobInject.sass.filesLocalPatterns,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-global-assets',
@@ -642,7 +642,7 @@ gulp.task('watch', function () {
   // Global Assets SASS
   watch(configuration.fileTypes.sass.globalAssetsSrc, function () {
     runSequence(
-      'glob-inject-sass-local',
+      'glob-inject-sass-global-assets',
       'sass',
       'patternlab-build-public',
       function () {
