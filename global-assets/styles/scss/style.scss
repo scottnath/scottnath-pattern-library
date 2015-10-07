@@ -16,10 +16,14 @@
 \*------------------------------------*/
 // inject:globalassets:scss
 @import '../../../patterns/molecules/text/test-pattern/test-pattern.scss';
+@import '../../../patterns/molecules/forms/sso-input/sso-input.scss';
 // endinjectglobalassets
 
 /*------------------------------------*\
     LOCAL PATTERN LIBRARY STYLES
 \*------------------------------------*/
 // inject:local:scss
+@import '../../../patterns/molecules/forms/sso-input/sso-input.scss';
+@import '../../../patterns/molecules/lists/doctree/doctree.scss';
+@import '../../../patterns/molecules/text/test-pattern/test-pattern.scss';
 // endinjectlocal

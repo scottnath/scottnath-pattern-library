@@ -1,0 +1,22 @@
+name: SSO Input
+description: PATTERN DESCRIPTION GOES HERE
+twig: sso-input.twig
+sass: sso-input.scss
+script:
+  - sso-input.js
+category: molecules
+subcategory: forms
+data:
+  ssoInput:
+    class: form__element input__text__sso-input
+    label:
+      content: SSO ID
+    input:
+      id: sso
+      name: sso
+      minlength: 9
+      maxlength: 9
+      pattern: '^[0-9]*$'
+      placeholder: Type SSO
+      required: required
+

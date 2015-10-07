@@ -1,0 +1,18 @@
+name: doctree
+description: Document Tree is a set of unordered lists which create a visual representation of a document tree hierarchy
+twig: doctree.twig
+sass: doctree.scss
+category: molecules
+subcategory: lists
+data:
+  doctree:
+    class: doctree
+    levels:
+      - level-one:
+        - file1
+      - level-two:
+        - file3
+        - file4
+        - dir1:
+          - file5
+          - file6

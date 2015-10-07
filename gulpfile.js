@@ -229,7 +229,7 @@ var globbingOptionsGlobalAssetsSass = {
     starttag: '// inject:globalassets:scss',
     endtag: '// endinjectglobalassets'
   },
-  files: configuration.gulpTasks.fileGlobInject.sass.filesLocalPatterns,
+  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-global-assets',
@@ -244,7 +244,7 @@ var globbingOptionsLocalSass = {
     starttag: '// inject:local:scss',
     endtag: '// endinjectlocal'
   },
-  files: configuration.gulpTasks.fileGlobInject.sass.filesGlobalAssets,
+  files: configuration.gulpTasks.fileGlobInject.sass.filesLocalPatterns,
   src: configuration.gulpTasks.fileGlobInject.sass.srcFile, // source file with types of files to be glob-injected
   dest: configuration.gulpTasks.fileGlobInject.sass.destDir, // destination directory where we'll write our ammended source file
   taskName: 'glob-inject-sass-local',

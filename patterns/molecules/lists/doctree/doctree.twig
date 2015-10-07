@@ -1,0 +1,44 @@
+<!-- Pattern: doctree -->
+
+{% macro level__document(level) %}
+  <li class="icon icon--document">{{level}}</li>
+{% endmacro %}
+
+{% macro level__folder(level) %}
+
+  {% import _self as levels2 %}
+
+  {% for key, sublevel in level %}
+    {% if key matches '/[a-zA-Z]/' %}
+      <li class="icon icon--folder-open"><span class="folder__name">{{key}}</span><ul>
+    {% endif %}
+
+    {% if sublevel is iterable %}
+      {{ levels2.level__folder(sublevel) }}
+    {% else %}
+      {{ levels2.level__document(sublevel) }}
+    {% endif %}
+
+    {% if key matches '/^\\D+$/' %}
+    </ul></li>
+    {% endif %}
+
+  {% endfor %}
+
+{% endmacro %}
+
+{% import _self as levels %}
+
+<ul class="doctree">
+
+  {% for level in doctree.levels %}
+
+    {% if level is iterable %}
+      {{ levels.level__folder(level) }}
+    {% else %}
+      {{ levels.level__document(level) }}
+    {% endif %}
+
+  {% endfor %}
+
+</ul>

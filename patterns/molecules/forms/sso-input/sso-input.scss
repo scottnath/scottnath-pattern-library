@@ -1,0 +1,126 @@
+/**
+ * SSO Input Pattern SASS
+ */
+
+fieldset {
+  margin: 1em 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+  background: -webkit-linear-gradient(top, white 80%, #eee);
+  background: -moz-linear-gradient(top, white 80%, #eee);
+  background: -ms-linear-gradient(top, white 80%, #eee);
+  background: linear-gradient(to bottom, white 80%, #eee);
+}
+legend {
+  padding: 2px 8px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 -1px 1px rgba(0,0,0,0.4);
+  font-size: 13px;
+  color: #333;
+}
+fieldset label {
+  float: left;
+  clear: left;
+  padding-top: 2px;
+  width: 120px;
+  text-align: right;
+  font-size: 90%;
+  color: #333;
+}
+fieldset label:after { content: ":"; }
+fieldset label strong { color: #c00; }
+fieldset span {
+  display: block;
+  margin: 0 0 0 120px;
+  padding: 0 0 4px 4px;
+}
+fieldset span label {
+  display: inline-block;
+  float: none;
+  width: auto;
+  white-space: nowrap;
+  text-align: left;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+fieldset span label:after { content: ""; }
+
+fieldset input, fieldset textarea, fieldset select {
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background: #fff;
+  line-height: 1.1;
+  font-family: inherit;
+  font-size: 1.1em;
+}
+fieldset input:focus, fieldset textarea:focus, fieldset select:focus {
+  border: 1px solid #aaa;
+  box-shadow: 0 0 3px rgba(0,0,0,.2);
+  color: #333;
+}
+
+fieldset input[type=image], fieldset input[type=file] { border: none; }
+fieldset input[type=submit], fieldset input[type=reset], fieldset input[type=button] {
+  padding: 2px 6px;
+  border: #b5bbc4 1px solid;
+  background: #f7fafc;
+  background-image: -webkit-linear-gradient(top, #fff, #dae6f1);
+  background-image: -moz-linear-gradient(top, #fff, #dae6f1);
+  background-image: -ms-linear-gradient(top, #fff, #dae6f1);
+  background-image: linear-gradient(to bottom, #fff, #dae6f1);
+  font-size: 100%;
+  color: #333;
+}
+fieldset input[type=submit]:hover, fieldset input[type=reset]:hover, fieldset input[type=button]:hover {
+  color: #e36627;
+}
+
+fieldset input:disabled,
+fieldset input:disabled:hover,
+fieldset input:disabled:focus {
+  color: #999 !important;
+}
+
+input.cssform-undo:disabled { display: none; }
+
+a.delete:link, a.delete:visited { color: #c00 !important; }
+a.delete:hover, a.delete:focus {
+  color: #000 !important;
+  background-color: yellow !important;
+}
+
+.warning {
+  margin: 0.5em 0;
+  border: 1px solid #f00;
+  background-color: #ff0;
+  font-size: 11px;
+  color: #333;
+}
+p.warning, .warning p, span.warning { padding: 0.5em; }
+.warning b {
+  text-transform: uppercase;
+  color: #f00;
+}
+
+input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focus:invalid {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAT1JREFUeNpi/P//PwMpgImBRMACY/x7/uDX39sXt/67cMoDyOVgMjBjYFbV/8kkqcCBrIER5KS/967s+rmkXxzI5wJiRSBm/v8P7NTfHHFFl5mVdIzhGv4+u///x+xmuAlcdXPB9KeqeLgYd3bDU2ZpRRmwH4DOeAI07QXIRKipYPD35184/nn17CO4p/+cOfjl76+/X4GYAYThGn7/g+Mfh/ZZwjUA/aABpJVhpv6+dQUjZP78Z0YEK7OezS2gwltg64GmfTu6i+HL+mUMP34wgvGvL78ZOEysf8M1sGgZvQIqfA1SDAL8iUUMPIFRQLf+AmMQ4DQ0vYYSrL9vXDz2sq9LFsiX4dLRA0t8OX0SHKzi5bXf2HUMBVA0gN356N7p7xdOS3w5fAgcfNxWtn+BJi9gVVBOQfYPQIABABvRq3BwGT3OAAAAAElFTkSuQmCC');
+  background-position: right top;
+  background-repeat: no-repeat;
+  box-shadow: none;
+}
+input:required:valid, textarea:required:valid {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAZZJREFUeNpi/P//PwMpgImBRMAy58QshrNPTzP8+vOLIUInisFQyYjhz98/DB9/fmT48/+35v7H+8KNhE2+WclZd+G0gZmJmYGThUNz1fUVMZtvbWT59eUXG9wGZIWMUPj993eJ5VeWxuy8veM/CzPL3yfvH/9H0QBSBDYZyOVm4mGYfn6q4cory5lYmFh+MrEwM/76/YsR7mk2ZjbWP///WP37/y8cqIDhx58fjvtu7XV6//ndT34G/v8FasUsDjKO/+A2PP3wpGLd+TVsfOz8XH6KAT+nHpokcu7h6d9q/BoMxToVbBYqlt9///+1GO4/WVdpXqY/zMqXn13/+vTjI9mj94/y//v9/3e9ZRObvYbDT0Y2xnm///x+wsfHB3GSGLf41jb3rv0O8nbcR66d+HPvxf2/+YZFTHaqjl8YWBnm/vv37yly5LL8+vuLgYuVa3uf/4T/Kd8SnSTZpb6FGUXwcvJxbAPKP2VkZESNOBDx8+9PBm4OwR1TwmYwcfzjsBUQFLjOxs52A2YyKysrXANAgAEA7buhysQuIREAAAAASUVORK5CYII=');
+  background-position: right top;
+  background-repeat: no-repeat;
+}
+
+input::-webkit-input-placeholder { color: #ababab; }
+input:-moz-placeholder { color: #ababab; }
+
+input[type="number"] {
+  max-width: 4em;
+}

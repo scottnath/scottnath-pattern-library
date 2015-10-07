@@ -1,0 +1,44 @@
+/**
+ * doctree Pattern SASS
+ */
+
+/* Document Tree
+
+    <ul class="doctree">
+      <li class="icon icon--folder-open">directoryName<ul>
+        <li class="icon icon--document">bower.json</li>
+        <li class="icon icon--document">fileName.yml</li>
+        <li class="icon icon--document">fileName.html</li>
+        <li class="icon icon--document">fileName.scss</li>
+        <li class="icon icon--document">fileName.js</li>
+        </ul></li>
+    </ul>
+
+*/
+
+.doctree, .doctree ul {
+  padding: 0;
+  line-height: 1.4em;
+}
+
+.doctree .icon {
+  background: url() no-repeat left .1em;
+  list-style: none;
+  padding: 0 0 0 20px;
+  font-size: 1em;
+}
+
+.doctree .icon .icon {
+  font-size: 1em;
+}
+
+.doctree .icon--folder-open {
+  background-image: url('data:image/gif;base64,R0lGODlhEAAQAMQUAM+eBPLYRfr0ufLiZPz0wvHmcfLeWPTbS/HpfPbwovHkbPLeV/PtnfLslfHVQOrafPHgYPjyrO7ojNChCv///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAABQALAAAAAAQABAAAAVYICWOZCkC6GSWgOAKwDq2RxDAaB6fgm2/wF3LRyQKBY6AbqnrAQjQKDTiQjmBgkSC0ZA8rICBWFEoIMzlWAtgaBvEA4UYogYUD4tFTXmyF4tCTEwyhIUyIQA7');
+  font-weight: 800;
+}
+
+.doctree .icon--document {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABlElEQVR4nHWSMWsUURDHf+/dxUSRGImolQq2CtoJVn4HOzlNIWjKgJX6DRQsRDRYJBpsrRWsrkjsAhaCBBEUi+SUkMjdvff2vTcWu3fZW8ep/rsz+5v/zKyhirsfdqKBvghgwFTvp1rG2Fbb3r54bOnCcfuSRrRHwvui9ejaydlmAcDDbo/lT/L0q5Pf52fMWxUgKQIwf7hNM04fsTy4Ojd972NvZTvnX6es7Y5ydiScK4hZ6w9DXwDw+MqJ2Wcb26+jyKV/HDhfIFknrG/16OzsA3Bm/ujZ+++/b1KtqbaDQBbdQXfx8ljvucj1tc/j54MRfAEySfgPj0Oksa5fgdz4xNR0PVMf9WAHIRBTWWZurKqd5c0Cg5AY+qAAfIGLGZ+FP6s3VYBLgkuCr64yCXAFLgouGeYWXqmA3ZVbZY0K8KFMRuHHckd3EKV0qQF8KEdwSTh3Z00FfHvRKSFBdVAgxoCxbD3Xd4C1iDF4DdAfBr783KPvEzHlyRtW0bKG3r5jMFQADDyLT97pnZsxMzX+Ef4Cm0DQoAHxGOoAAAAASUVORK5CYII=');
+  font-weight: 500;
+}
+
